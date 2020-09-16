@@ -16,6 +16,7 @@ const { sequelize } = require("./models");
 const app = express();
 sequelize.sync();
 passportConfig(passport);
+// test
 
 app.set('port', process.env.PORT || 80);
 app.set("view engine", "pug");
