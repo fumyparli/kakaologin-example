@@ -4,14 +4,22 @@ const morgan = require("morgan");
 const path = require("path");
 const session = require("express-session");
 const dotenv = require("dotenv");
+const pug = require("pug");
+const passport = require("passport");
 dotenv.config(); // 비번안전하게
 
 const indexRouter = require("./routes");
 const authRouter = require("./routes/auth");
+const passportConfig = require("./passport");
+const { sequelize } = require("./models");
 
 const app = express();
+sequelize.sync();
+passportConfig(passport);
 
 app.set('port', process.env.PORT || 80);
+app.set("view engine", "pug");
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -24,9 +32,11 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-        secure: false
+        //secure: false
     }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/auth", authRouter);

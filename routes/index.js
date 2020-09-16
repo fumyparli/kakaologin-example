@@ -1,9 +1,16 @@
 const express = require("express");
+const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
+const { User } = require("../models");
 const router = express.Router();
+const nunjucks = require("pug");
 
-router.get('/', (req, res, next) => {
-    console.log("success!");
-    res.send("<h1>success!!!<h1>");
+// main page
+router.get("/", (req, res, next) => {
+    // 찾아서 게시물 rendering
+    res.render("main", {
+        title: "OneWeek",
+        user: req.user
+    });
 });
 
 module.exports = router;

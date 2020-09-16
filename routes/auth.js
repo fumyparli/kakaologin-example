@@ -1,12 +1,26 @@
 const express = require("express");
+const passport = require("passport");
+const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
+const { User } = require("../models");
 const router = express.Router();
 
-router.post('/login', (req, res, next) => {
-    cosnt[(email, password)] = req.body;
-    if (email === 'admin' && password === 'admin') {
-        return res.json({ status: 'ok', message: 'adminToken123' });
-    }
-    return res.json({ status: 'error', message: 'Incorrect email or password' });
+router.get("/logout", isLoggedIn, (req, res) => {
+    req.logout(); // delete req.user
+    req.session.destroy(); // req.user in fact, not needed
+    res.redirect("/");
 });
+
+router.get("/kakao", passport.authenticate("kakao"));
+
+router.get(
+    "/kakao/callback",
+    passport.authenticate("kakao", {
+        failureDirect: "/", // 로그인 실패시
+    }),
+    (req, res) => {
+        console.log("카톡!카톡!");
+        res.redirect("/");
+    }
+);
 
 module.exports = router;

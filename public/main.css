@@ -1,0 +1,38 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+.btn {
+  display: inline-block;
+  margin: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+  background: whitesmoke;
+  border: 1px solid silver;
+  color: black;
+  height: 74px;
+  width: 249px;
+  line-height: 74px;
+  vertical-align: top;
+  font-size: 40px;
+}
+.container { width: 100%; height: 100%; }
+@media screen and (min-width: 800px) {
+  .container { width: 800px; margin: 0 auto; }
+}
+.profile-wrap {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 0;
+}
+@media screen and (min-width: 800px) {
+  .profile-wrap { width: 290px; margin-bottom: 0; }
+}
+.profile {
+  text-align: left;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 1px solid silver;
+  background: gray;
+}
